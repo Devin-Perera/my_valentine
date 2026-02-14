@@ -188,6 +188,38 @@
         opacity: 1;
       }
     }
+
+    /* Fade Overlay */
+    #fadeOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 3s ease;
+      z-index: 8;
+    }
+
+    /* Final Message */
+    #finalMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 42px;
+      font-weight: bold;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 3s ease;
+      z-index: 9;
+      font-family: 'Segoe UI', sans-serif;
+      letter-spacing: 1px;
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -235,7 +267,20 @@
       card.style.display = "block";
       music.play();
       startEffects();
+
+      // After 20 seconds → fade everything
+      setTimeout(() => {
+        document.getElementById("fadeOverlay").style.opacity = "1";
+
+        setTimeout(() => {
+          card.style.display = "none";
+          document.getElementById("finalMessage").style.opacity = "1";
+          document.getElementById("fadeOverlay").style.opacity = "0";
+        }, 3000);
+
+      }, 20000);
     };
+
 
     function startEffects() {
 
@@ -282,6 +327,10 @@
       });
     }
   </script>
+
+  <div id="fadeOverlay"></div>
+  <div id="finalMessage">I Choose You. Always.</div>
+
 
 </body>
 
